@@ -12,7 +12,8 @@ from skipgrams import skipgrams
 from readsms import ReadSms
 from utils import AttrDict
 
-WIKI_DOWNLOAD_DIR = './wikipedia/meta/'
+INPUT_SMS_DIR = '/data/sms_process1/'
+OUTPUT_SMS_DIR = '/data/sms_process2/'
 
 params = AttrDict(
     vocabulary_size=10000,
@@ -27,11 +28,7 @@ data = tf.placeholder(tf.int32, [None])
 target = tf.placeholder(tf.int32, [None])
 model = EmbeddingModel(data, target, params)
 
-corpus = Wikipedia(
-    'https://dumps.wikimedia.org/idwiki/20170901/'
-    'idwiki-20170901-pages-meta-current.xml.bz2',
-    WIKI_DOWNLOAD_DIR,
-    params.vocabulary_size)
+corpus = ReadSms(INPUT_SMS_DIR, OUTPUT_SMS_DIR, params.vocabulary_size)
 examples = skipgrams(corpus, params.max_context)
 batches = batched(examples, params.batch_size)
 
@@ -47,5 +44,5 @@ for index, batch in enumerate(batches):
         break
 
 embeddings = sess.run(model.embeddings)
-np.save('./wikipedia/output/idembeddings.npy', embeddings)
+np.save('/data/sms_process2/idembeddings.npy', embeddings)
 sess.close()
