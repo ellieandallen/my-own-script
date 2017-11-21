@@ -92,9 +92,9 @@ class AttrDict(dict):
 # params = AttrDict(key = value, )
 
 
-def get_params():
-    key = value
-    return AttrDict(**locals())
+# def get_params():
+#     key = value
+#     return AttrDict(**locals())
 
 
 def get_params():
