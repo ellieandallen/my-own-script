@@ -1,4 +1,4 @@
-# @author: lionheart
+# @author: ellie
 
 # Created on 2017-11-30
 
@@ -64,7 +64,6 @@ if __name__ == '__main__':
     # input dir
     inp = '/data'
     foldername = 'sms_process2'
-    outp = '/data/sms_process3'
 
     logger.info("running " + foldername + " files.")
     rootdir = inp + '/' + foldername
@@ -78,5 +77,8 @@ if __name__ == '__main__':
             logger.info("Dealing with file: " + sms_file)
 
             merged = merge_vec(merged, sms_file)
+
+    with open('/data/sms_commonfiles/uid_vector.vec', 'wb') as vector_file:
+        pickle.dump(merged, vector_file, pickle.HIGHEST_PROTOCOL)
 
     print 'game over'
