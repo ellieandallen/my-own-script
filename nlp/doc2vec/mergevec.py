@@ -1,4 +1,4 @@
-# @author: ellie
+# @author: lionheart
 
 # Created on 2017-11-30
 
@@ -7,9 +7,12 @@ import sys
 import logging
 import pickle
 from itertools import groupby
+from operator import itemgetter
 
 
 def _merge_vec(vector):
+    vector = sorted(vector, key=itemgetter(0))
+    # vector = sorted(vector, key=lambda x: x[0])
     # merge vectors of the same uid
     result = []
     for key, group in groupby(vector, lambda x: x[0]):
