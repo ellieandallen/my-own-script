@@ -185,3 +185,5 @@ print 'game over'
 #     pool.join()
 #
 #     print 'game over'
+
+# uidset = set([x for x in result if result.count(x) > 1])
